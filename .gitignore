@@ -1,0 +1,16 @@
+### https://raw.github.com/github/gitignore/e27b4277e2cd2f2e91ab343419df65f7192ab4dd/Leiningen.gitignore
+
+pom.xml
+pom.xml.asc
+*jar
+/lib/
+/classes/
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+
+
