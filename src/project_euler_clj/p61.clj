@@ -47,8 +47,8 @@
   ([]          (trampoline find-cyclic-list (range 3 9)))
   ([poly-perm] (trampoline find-cyclic-list
                            (map (fn [i] (:numbers ((symbol (str i)) digits))) poly-perm)
-                           (fn [x] true) identity))
-  ([poly-list item-selector last-selector]
+                           (fn [x] true)))
+  ([poly-list item-selector]
    (let [fst (first poly-list)
          rst (rest poly-list)
          items (filter item-selector fst)]
@@ -57,10 +57,7 @@
        (for [i items
              j (find-cyclic-list
                  rst
-                 (partial cycle-nums? i)
-                 (if (= identity last-selector)
-                   (fn [k] (cycle-nums? k i))
-                   last-selector))]
+                 (partial cycle-nums? i))]
          (cons i [j]))))
    ))
 
@@ -73,15 +70,4 @@
                           (map
                             (comp (partial map flatten) find-cyclic-list)
                             (combo/permutations (range 3 9))))))))
-
-; unused helpers
-(defn cyclic-list?
-  [lst]
-  (loop [i (- (count lst) 1)]
-    (if (< i 0)
-      true
-      (let [i-plus-1 (rem (+ i 1) (count lst))]
-        (if-not (cycle-nums? (get lst i) (get lst i-plus-1))
-          false
-          (recur (dec i)))))))
 
